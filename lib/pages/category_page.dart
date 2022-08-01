@@ -3,7 +3,8 @@ import 'package:my_dog_app/views/favorite_view.dart';
 import 'package:my_dog_app/views/vote_view.dart';
 
 class CategoryPage extends StatefulWidget {
-  const CategoryPage({Key? key}) : super(key: key);
+  final int crossAxisCount;
+  const CategoryPage({Key? key, this.crossAxisCount = 2}) : super(key: key);
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -68,9 +69,9 @@ class _CategoryPageState extends State<CategoryPage> {
           selectedScreen = page;
           setState(() {});
         },
-        children: const [
-          FavoriteView(),
-          VoteView(),
+        children:  [
+          FavoriteView(crossAxisCount: widget.crossAxisCount,),
+          VoteView(crossAxisCount: widget.crossAxisCount,),
         ],
       ),
     );

@@ -7,7 +7,8 @@ import 'package:my_dog_app/models/image_model.dart';
 import 'package:my_dog_app/services/network_service.dart';
 
 class VoteView extends StatefulWidget {
-  const VoteView({Key? key}) : super(key: key);
+  final int crossAxisCount;
+  const VoteView({Key? key, this.crossAxisCount = 2}) : super(key: key);
 
   @override
   State<VoteView> createState() => _VoteViewState();
@@ -82,15 +83,26 @@ class _VoteViewState extends State<VoteView> with AutomaticKeepAliveClientMixin 
       child: GridView.custom(
         controller: _scrollController,
         gridDelegate: SliverQuiltedGridDelegate(
-          crossAxisCount: 4,
+          crossAxisCount: widget.crossAxisCount > 4 ? 6 : 4,
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
           repeatPattern: QuiltedGridRepeatPattern.inverted,
-          pattern: [
+          pattern: widget.crossAxisCount <= 4 ? [
             const QuiltedGridTile(2, 2),
             const QuiltedGridTile(1, 1),
             const QuiltedGridTile(1, 1),
             const QuiltedGridTile(1, 2),
+
+          ]:[
+            const QuiltedGridTile(2, 2),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 2),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 1),
+
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(

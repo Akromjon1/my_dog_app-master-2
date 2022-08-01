@@ -6,7 +6,8 @@ import 'package:my_dog_app/models/favorite_image.dart';
 import 'package:my_dog_app/services/network_service.dart';
 
 class FavoriteView extends StatefulWidget {
-  const FavoriteView({Key? key}) : super(key: key);
+  final int crossAxisCount;
+  const FavoriteView({Key? key, this.crossAxisCount = 2}) : super(key: key);
 
   @override
   State<FavoriteView> createState() => _FavoriteViewState();
@@ -57,15 +58,26 @@ class _FavoriteViewState extends State<FavoriteView> with AutomaticKeepAliveClie
     return GridView.custom(
       controller: _scrollController,
       gridDelegate: SliverQuiltedGridDelegate(
-        crossAxisCount: 4,
+        crossAxisCount: widget.crossAxisCount > 4 ? 6 : 4,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         repeatPattern: QuiltedGridRepeatPattern.inverted,
-        pattern: [
+        pattern: widget.crossAxisCount <= 4 ? [
           const QuiltedGridTile(2, 2),
           const QuiltedGridTile(1, 1),
           const QuiltedGridTile(1, 1),
           const QuiltedGridTile(1, 2),
+
+        ]:[
+          const QuiltedGridTile(2, 2),
+          const QuiltedGridTile(1, 1),
+          const QuiltedGridTile(1, 1),
+          const QuiltedGridTile(1, 2),
+          const QuiltedGridTile(1, 1),
+          const QuiltedGridTile(1, 1),
+          const QuiltedGridTile(1, 1),
+          const QuiltedGridTile(1, 1),
+
         ],
       ),
       childrenDelegate: SliverChildBuilderDelegate(
